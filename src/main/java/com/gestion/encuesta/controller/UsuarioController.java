@@ -27,7 +27,39 @@ public class UsuarioController {
     }
     @PostMapping("/guardar")
     public ResponseEntity<?> registrar(@RequestBody Usuario usuario){
-    	 if (usuario.getRol() == null) {
+
+        if (usuario.getNombre() == null || usuario.getNombre().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de nombre es obligatorio\"}");
+        }
+
+
+        if (usuario.getApellido() == null || usuario.getApellido().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de apellido es obligatorio\"}");
+        }
+
+        if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de email es obligatorio\"}");
+        }
+
+        if (usuario.getUsername() == null || usuario.getUsername().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de username es obligatorio\"}");
+        }
+
+        if (usuario.getPassword() == null || usuario.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de contraseña es obligatorio\"}");
+        }
+
+        if (service.existeUsuarioPorEmail(usuario.getEmail())) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El email ya está en uso\"}");
+        }
+
+        if (service.existeUsuarioPorUsername(usuario.getUsername())) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El username ya está en uso\"}");
+        }
+
+
+
+        if (usuario.getRol() == null) {
              usuario.setRol("USER");
          }
     	String username = usuario.getUsername();

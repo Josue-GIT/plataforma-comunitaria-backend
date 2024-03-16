@@ -45,12 +45,26 @@ public class PropuestaController {
                                               @RequestParam("ubicacion") String ubicacion,
                                               @RequestParam("usuarioId") Long usuarioId) {
         try {
-            // Aquí puedes realizar validaciones adicionales si es necesario
 
-            if (titulo == null || titulo.trim().isEmpty() ||
-                    descripcion == null || descripcion.trim().isEmpty() ||
-                    ubicacion == null || ubicacion.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Los campos título, descripcion y ubicación no pueden estar vacíos");
+            // Validar campo imagen
+            if (imgString64 == null || imgString64.isEmpty()) {
+                return ResponseEntity.badRequest().body("La imagen es obligatoria");
+            }
+
+
+            // Validar campo título
+            if (titulo == null || titulo.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo título es obligatorio");
+            }
+
+            // Validar campo descripción
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo descripción es obligatorio");
+            }
+
+            // Validar campo ubicación
+            if (ubicacion == null || ubicacion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo ubicación es obligatorio");
             }
 
             // Aquí puedes obtener el usuario por su ID

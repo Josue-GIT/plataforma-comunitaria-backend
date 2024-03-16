@@ -45,13 +45,24 @@ public class EventoController {
                                            @RequestParam("fechaHora") String fechaHora,
                                            @RequestParam("ubicacion") String ubicacion) {
         try {
-            // Aquí puedes realizar validaciones adicionales si es necesario
+            if (imgString64 == null || imgString64.isEmpty()) {
+                return ResponseEntity.badRequest().body("La imagen es obligatoria");
+            }
 
-            if (titulo == null || titulo.trim().isEmpty() ||
-                    fechaHora == null || fechaHora.trim().isEmpty() ||
-                    descripcion == null || descripcion.trim().isEmpty() ||
-                    ubicacion == null || ubicacion.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Los campos título, fechaHora, descripcion y ubicación no pueden estar vacíos");
+            if (titulo == null || titulo.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo título es obligatorio");
+            }
+
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo descripción es obligatorio");
+            }
+
+            if (fechaHora == null || fechaHora.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo fechaHora es obligatorio");
+            }
+
+            if (ubicacion == null || ubicacion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo ubicación es obligatorio");
             }
 
             Evento evento = new Evento();

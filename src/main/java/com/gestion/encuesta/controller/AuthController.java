@@ -27,6 +27,15 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Credenciales credenciales) {
+
+        if (credenciales.getUsername() == null || credenciales.getUsername().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de usuario no puede estar vacio\"}");
+        }
+
+        if (credenciales.getPassword() == null || credenciales.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().body("{\"message\": \"El campo de contraseña no puede estar vacio\"}");
+        }
+
         String username = credenciales.getUsername();
         String password = credenciales.getPassword();
 

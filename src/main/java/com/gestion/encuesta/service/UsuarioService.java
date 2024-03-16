@@ -25,4 +25,12 @@ public class UsuarioService {
     public Usuario obtenerUsuarioPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }
+
+    public boolean existeUsuarioPorUsername(String username) {
+        return usuarioRepository.existsByUsername(username);
+    }
+
+    public boolean existeUsuarioPorEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
+    }
 }

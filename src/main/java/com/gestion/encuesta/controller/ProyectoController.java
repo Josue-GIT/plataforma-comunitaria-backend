@@ -34,12 +34,25 @@ public class ProyectoController {
                                              @RequestParam("ubicacion") String ubicacion,
                                              @RequestParam("estado") String estado) {
         try {
-            // Aquí puedes realizar validaciones adicionales si es necesario
 
-            if (titulo == null || titulo.trim().isEmpty() ||
-                    descripcion == null || descripcion.trim().isEmpty() ||
-                    estado == null || estado.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Los campos título, descripción y estado no pueden estar vacíos");
+            if (imgString64 == null || imgString64.isEmpty()) {
+                return ResponseEntity.badRequest().body("La imagen es obligatoria");
+            }
+
+            if (titulo == null || titulo.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo título es obligatorio");
+            }
+
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo descripción es obligatorio");
+            }
+
+            if (ubicacion == null || ubicacion.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo ubicación es obligatorio");
+            }
+
+            if (estado == null || estado.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("El campo estado es obligatorio");
             }
 
             Proyecto proyecto = new Proyecto();
