@@ -1,5 +1,6 @@
 package com.gestion.encuesta.controller;
 
+import com.gestion.encuesta.model.Rol;
 import com.gestion.encuesta.model.Usuario;
 import com.gestion.encuesta.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class UsuarioController {
 
 
         if (usuario.getRol() == null) {
-             usuario.setRol("USER");
+             usuario.setRol(Rol.valueOf("USER"));
          }
     	String username = usuario.getUsername();
         String nombre = usuario.getNombre();
@@ -72,7 +73,7 @@ public class UsuarioController {
         Usuario usuarioGuardado = service.guardarUsuario(usuario);
 
         if (usuarioGuardado != null) {
-            return ResponseEntity.ok(usuarioGuardado);
+            return ResponseEntity.ok().body("{\"message\": \"Usuario guardado exitosamente\"}");
         }else {
             return ResponseEntity.badRequest().body("No se pudo guardar el usuario. Verficar campos.");
         }

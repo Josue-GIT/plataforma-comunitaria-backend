@@ -3,12 +3,15 @@ package com.gestion.encuesta.service;
 import com.gestion.encuesta.model.Usuario;
 import com.gestion.encuesta.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UsuarioService {
+public class UsuarioService  {
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -33,4 +36,6 @@ public class UsuarioService {
     public boolean existeUsuarioPorEmail(String email) {
         return usuarioRepository.existsByEmail(email);
     }
+
+
 }
