@@ -1,6 +1,7 @@
 package com.gestion.encuesta.service;
 
 import com.gestion.encuesta.model.Usuario;
+import com.gestion.encuesta.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoder;
@@ -18,6 +19,12 @@ public class JwtService {
 
     private final String SECRET_KEY = "50bcf07657dca9382b91b159ea98b241098b4cef65a31ece35461b93c8eec624";
 
+    private final TokenRepository tokenRepository;
+
+    public JwtService(TokenRepository tokenRepository) {
+        this.tokenRepository = tokenRepository;
+    }
+
 
     public String extracUsername(String token) {
         System.out.println("Extrayendo nombre de usuario del token: " + token);
@@ -26,12 +33,11 @@ public class JwtService {
 
     public boolean isValid(String token, UserDetails usuario) {
         String username = extracUsername(token);
-        boolean isExpired = isTokenExpired(token);
-        System.out.println("Validando token para el usuario: " + username);
-        System.out.println("¿El token ha expirado? " + isExpired);
-        boolean isValid = username.equals(usuario.getUsername()) && !isExpired;
-        System.out.println("El token es válido? " + isValid);
-        return isValid;
+
+        boolean isValidToken = tokenRepository.findByToken(token)
+                                .map(t->!t.isLoggedOut()).orElse(false);
+
+        return (username.equals(usuario.getUsername())) && !isTokenExpired(token) && isValidToken;
     }
 
 
