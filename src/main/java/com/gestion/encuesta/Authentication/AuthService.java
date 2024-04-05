@@ -33,7 +33,7 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        Long rol = 2L;
+        Long rol = 1L;
         Usuario usuario = Usuario.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))

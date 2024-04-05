@@ -34,8 +34,7 @@ public class SecurityConfig {
 								.disable())
 				.authorizeHttpRequests(authRequest ->
 						authRequest
-								.requestMatchers("/api/auth/**").permitAll()
-								.requestMatchers("/usuarios/guardar").permitAll()
+								.requestMatchers("/**").permitAll()
 								.anyRequest().authenticated()
 				)
 				.sessionManagement(sessionManager ->
